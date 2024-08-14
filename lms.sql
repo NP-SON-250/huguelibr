@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 07, 2023 at 02:31 PM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.2
+-- Host: 127.0.0.1
+-- Generation Time: Aug 14, 2024 at 09:16 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -35,10 +34,10 @@ CREATE TABLE `books` (
   `publication_year` varchar(10) DEFAULT NULL,
   `isbn` varchar(255) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `books`
@@ -70,10 +69,10 @@ CREATE TABLE `book_loans` (
   `student_id` int(11) DEFAULT NULL,
   `loan_date` date DEFAULT NULL,
   `return_date` date DEFAULT NULL,
-  `is_return` tinyint(1) NOT NULL DEFAULT '0',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_return` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `book_loans`
@@ -92,9 +91,9 @@ INSERT INTO `book_loans` (`id`, `book_id`, `student_id`, `loan_date`, `return_da
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `categories`
@@ -114,8 +113,8 @@ CREATE TABLE `reset_password` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `reset_code` varchar(20) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -128,11 +127,11 @@ CREATE TABLE `students` (
   `name` varchar(255) DEFAULT NULL,
   `phone_no` varchar(15) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `address` text,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `address` text DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `students`
@@ -140,8 +139,9 @@ CREATE TABLE `students` (
 
 INSERT INTO `students` (`id`, `name`, `phone_no`, `email`, `address`, `status`, `created_at`, `updated_at`) VALUES
 (2, 'Ali Asgar', '8768768560', 'aliasgar@gmail.com', 'Building no 9, flat no 102', 1, '2023-06-06 02:07:08', '2023-06-06 02:39:13'),
-(5, 'Rizwan', '9878687676', 'rizwan@gmail.com', '', 0, '2023-06-06 02:15:42', NULL),
-(6, 'Wasim', '9829001122', 'wasim@outlook.com', '', 1, '2023-06-06 02:19:43', NULL);
+(5, 'Rizwan', '9878687676', 'rizwan@gmail.com', '', 1, '2023-06-06 02:15:42', NULL),
+(6, 'Wasim', '9829001122', 'wasim@outlook.com', '', 1, '2023-06-06 02:19:43', NULL),
+(7, 'Alexis HAKIZIMANA', '0786731449', 'alexis@gmail.com', '', 1, '2024-08-13 16:05:21', NULL);
 
 -- --------------------------------------------------------
 
@@ -156,9 +156,9 @@ CREATE TABLE `subscriptions` (
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   `amount` float(10,2) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `subscriptions`
@@ -167,7 +167,8 @@ CREATE TABLE `subscriptions` (
 INSERT INTO `subscriptions` (`id`, `student_id`, `plan_id`, `start_date`, `end_date`, `amount`, `created_at`, `updated_at`) VALUES
 (1, 2, 1, '2023-06-06', '2023-07-06', 300.00, '2023-06-06 06:24:11', NULL),
 (2, 5, 6, '2023-06-06', '2023-06-06', 2000.00, '2023-06-06 06:24:19', NULL),
-(3, 6, 1, '2023-06-06', '2023-07-06', 300.00, '2023-06-06 06:37:43', NULL);
+(3, 6, 1, '2023-06-06', '2023-07-06', 300.00, '2023-06-06 06:37:43', NULL),
+(4, 5, 2, '2024-08-13', '2024-11-13', 750.00, '2024-08-13 16:08:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -178,12 +179,12 @@ INSERT INTO `subscriptions` (`id`, `student_id`, `plan_id`, `start_date`, `end_d
 CREATE TABLE `subscription_plans` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL DEFAULT '',
-  `amount` float(10,2) NOT NULL DEFAULT '0.00',
+  `amount` float(10,2) NOT NULL DEFAULT 0.00,
   `duration` int(11) DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `subscription_plans`
@@ -209,16 +210,17 @@ CREATE TABLE `users` (
   `phone_no` varchar(20) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `profile_pic` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone_no`, `password`, `profile_pic`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', '9810230918', '$2y$10$zcURY6hzg3qao4BCuVVPb.uszpOUMOZBY14PyaKG.aOjAL3A6E/PS', 'mar.png', '2023-06-07 09:44:48', '2023-06-07 08:59:31');
+(1, 'Shema', 'admin@gmail.com', '+250786731449', '$2y$10$rcQK/iyOyHAEwevdwHwWxedTX/kR8DP55MfEp2Uboah7yriqUZFg6', 'bluelogo.png', '2023-06-07 09:44:48', '2024-08-13 17:38:51'),
+(2, 'Alexis Hakizimana', 'alexis@gmail.com', '786731449', 'alexis@123', NULL, '2024-08-13 15:59:02', NULL);
 
 --
 -- Indexes for dumped tables
@@ -304,13 +306,13 @@ ALTER TABLE `reset_password`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `subscriptions`
 --
 ALTER TABLE `subscriptions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `subscription_plans`
@@ -322,7 +324,7 @@ ALTER TABLE `subscription_plans`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -9,7 +9,7 @@ if (isset($_SESSION['is_user_login'])) {
     exit;
 }
 
-// Login Functionality (pizza123)
+// Login Functionality (pizza123)////
 if (isset($_POST['submit'])) {
     $res = login($conn, $_POST);
     if ($res['status'] == true) {
